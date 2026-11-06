@@ -1,0 +1,5 @@
+-- Study Circle uses Supabase Realtime Presence + Broadcast.
+-- No application tables are required for this MVP.
+-- In Supabase Dashboard: Project Settings -> API, copy Project URL and anon key.
+-- Realtime is enabled by default for channels. Keep your anon key public;
+-- NEVER put a service_role key in this browser app.
