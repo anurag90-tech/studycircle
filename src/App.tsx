@@ -527,7 +527,7 @@ export default function App() {
             <input
               value={name}
               onChange={e => setName(e.target.value)}
-              placeholder="e.g. Anurag"
+              placeholder="e.g. John"
               maxLength={30}
             />
             <label>Room code <small>Optional — leave blank to create one</small></label>
