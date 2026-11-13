@@ -169,7 +169,7 @@ export default function App() {
     const stream = localStreamRef.current;
     (["audio", "video"] as const).forEach(kind => {
       const transceiver = pc.addTransceiver(kind, { direction: "sendrecv" });
-      const track = stream?.getTracks().find(item => item.kind === kind);
+      const track = stream?.getTracks().find((item: MediaStreamTrack) => item.kind === kind);
       if (track) void transceiver.sender.replaceTrack(track);
     });
 
@@ -212,7 +212,7 @@ export default function App() {
 
   const replacePeerTrack = async (kind: "audio" | "video", track: MediaStreamTrack | null) => {
     await Promise.all(
-      [...peersRef.current.values()].map(pc => {
+      [...peersRef.current.values()].map((pc: RTCPeerConnection) => {
         const sender = pc
           .getTransceivers()
           .find(item => item.receiver.track.kind === kind)?.sender;
@@ -297,9 +297,9 @@ export default function App() {
 
     channel.on("presence", { event: "sync" }, () => {
       const state = channel.presenceState<Person>();
-      const rawList = Object.values(state).flat().filter(p => p.id !== myId.current);
+      const rawList = Object.values(state).flat().filter((p: any) => p.id !== myId.current);
       const uniqueMap = new Map<string, Person>();
-      rawList.forEach(p => uniqueMap.set(p.id, p));
+      rawList.forEach((p: any) => uniqueMap.set(p.id, p));
       const list = [...uniqueMap.values()];
       setPeople(list);
 
@@ -375,7 +375,7 @@ export default function App() {
 
   const leaveRoom = useCallback(() => {
     joinedRef.current = false;
-    peersRef.current.forEach(pc => pc.close());
+    peersRef.current.forEach((pc: RTCPeerConnection) => pc.close());
     peersRef.current.clear();
     pendingCandidatesRef.current.clear();
     remoteStreamsRef.current.clear();
@@ -396,7 +396,7 @@ export default function App() {
   }, []);
 
   useEffect(() => () => {
-    peersRef.current.forEach(pc => pc.close());
+    peersRef.current.forEach((pc: RTCPeerConnection) => pc.close());
     localStreamRef.current?.getTracks().forEach(track => track.stop());
     if (channelRef.current) void supabase?.removeChannel(channelRef.current);
   }, []);
@@ -527,14 +527,14 @@ export default function App() {
             <input
               value={name}
               onChange={e => setName(e.target.value)}
-              placeholder="e.g. Anurag"
+              placeholder="e.g. John Doe"
               maxLength={30}
             />
             <label>Room code <small>Optional — leave blank to create one</small></label>
             <input
               value={roomInput}
               onChange={e => setRoomInput(e.target.value)}
-              placeholder="e.g. biology-night-study"
+              placeholder="e.g. phy-night-study"
               maxLength={32}
             />
             <button className="primary wide" onClick={() => void joinRoom()}>
@@ -547,7 +547,7 @@ export default function App() {
             <span className="privacy-dot" /> Your camera and microphone start OFF. You control when to share.
           </div>
         </section>
-        <footer>STUDY CIRCLE <span>·</span> MADE FOR FOCUSED SESSIONS</footer>
+        <footer>STUDY CIRCLE. Made with ❤️ by Anurag<span>·</span></br> MADE FOR FOCUSED SESSIONS</footer>
       </main>
     );
   }
