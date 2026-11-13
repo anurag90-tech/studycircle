@@ -527,14 +527,14 @@ export default function App() {
             <input
               value={name}
               onChange={e => setName(e.target.value)}
-              placeholder="e.g. John Doe"
+              placeholder="e.g. John"
               maxLength={30}
             />
             <label>Room code <small>Optional — leave blank to create one</small></label>
             <input
               value={roomInput}
               onChange={e => setRoomInput(e.target.value)}
-              placeholder="e.g. phy-night-study"
+              placeholder="e.g. biology-night-study"
               maxLength={32}
             />
             <button className="primary wide" onClick={() => void joinRoom()}>
@@ -547,7 +547,7 @@ export default function App() {
             <span className="privacy-dot" /> Your camera and microphone start OFF. You control when to share.
           </div>
         </section>
-        <footer>STUDY CIRCLE. Made with ❤️ by Anurag<span>·</span></br> MADE FOR FOCUSED SESSIONS</footer>
+        <footer>STUDY CIRCLE <span>·</span> MADE FOR FOCUSED SESSIONS</footer>
       </main>
     );
   }
